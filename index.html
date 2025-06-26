@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BotCraft Studios - Premium Discord Bots</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>CodeVault - Premium Discord Bots & RedM Scripts</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
         * {
             margin: 0;
             padding: 0;
@@ -14,29 +14,23 @@
         }
 
         :root {
-            --discord-blue: #5865F2;
-            --discord-dark: #2C2F33;
-            --discord-darker: #23272A;
-            --discord-light: #99AAB5;
-            --accent-purple: #7289DA;
-            --accent-green: #43B581;
-            --accent-red: #F04747;
-            --gradient-main: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --gradient-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #f59e0b;
+            --accent: #10b981;
+            --bg-dark: #0f0f23;
+            --bg-card: #1a1a2e;
             --text-primary: #ffffff;
-            --text-secondary: #b9bbbe;
-            --bg-primary: #2C2F33;
-            --bg-secondary: #36393f;
-            --bg-tertiary: #40444b;
+            --text-secondary: #a1a1aa;
+            --border: #27272a;
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--discord-darker);
+            background: var(--bg-dark);
             color: var(--text-primary);
-            overflow-x: hidden;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         /* Animated background */
@@ -46,32 +40,34 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%), 
-                        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%), 
-                        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.3) 0%, transparent 50%);
-            animation: bgShift 20s ease-in-out infinite;
             z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(245, 158, 11, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 60%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+            animation: bgFloat 20s ease-in-out infinite;
         }
 
-        @keyframes bgShift {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            33% { opacity: 0.5; transform: scale(1.1); }
-            66% { opacity: 0.4; transform: scale(0.9); }
+        @keyframes bgFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(-20px, -20px) rotate(1deg); }
+            66% { transform: translate(20px, 10px) rotate(-1deg); }
         }
 
-        /* Navigation */
-        nav {
+        /* Header */
+        .header {
             position: fixed;
             top: 0;
-            width: 100%;
-            background: rgba(44, 47, 51, 0.95);
-            backdrop-filter: blur(10px);
+            left: 0;
+            right: 0;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
             z-index: 1000;
             padding: 1rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .nav-container {
+        .nav {
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
@@ -81,9 +77,9 @@
         }
 
         .logo {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 800;
-            background: var(--gradient-main);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -91,914 +87,610 @@
 
         .nav-links {
             display: flex;
-            list-style: none;
             gap: 2rem;
+            list-style: none;
         }
 
-        .nav-links a {
+        .nav-link {
             color: var(--text-secondary);
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s ease;
-            position: relative;
         }
 
-        .nav-links a:hover {
-            color: var(--text-primary);
+        .nav-link:hover {
+            color: var(--primary);
         }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gradient-main);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .cta-button {
-            background: var(--gradient-main);
+        .nav-cta {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
-            padding: 0.8rem 1.5rem;
-            border: none;
+            padding: 0.75rem 1.5rem;
             border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
             text-decoration: none;
-            display: inline-block;
+            font-weight: 600;
+            transition: transform 0.3s ease;
         }
 
-        .cta-button:hover {
+        .nav-cta:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
         }
 
         /* Hero Section */
         .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding: 8rem 2rem 4rem;
             text-align: center;
-            padding: 0 2rem;
-            position: relative;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            animation: fadeInUp 1s ease-out;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .hero h1 {
-            font-size: clamp(3rem, 8vw, 5rem);
-            font-weight: 800;
+            font-size: 3.5rem;
+            font-weight: 900;
             margin-bottom: 1.5rem;
-            background: var(--gradient-main);
+            background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            line-height: 1.2;
         }
 
-        .hero p {
-            font-size: 1.3rem;
+        .hero-subtitle {
+            font-size: 1.25rem;
             color: var(--text-secondary);
-            margin-bottom: 2.5rem;
+            margin-bottom: 3rem;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
         }
 
-        .hero-buttons {
+        .hero-cta {
             display: flex;
             gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
         }
 
-        .btn-primary {
-            background: var(--gradient-main);
-            color: white;
+        .btn {
             padding: 1rem 2rem;
-            border: none;
             border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
             text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
         }
 
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
         }
 
         .btn-secondary {
             background: transparent;
             color: var(--text-primary);
-            padding: 1rem 2rem;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
+            border: 2px solid var(--border);
         }
 
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.4);
+        .btn:hover {
             transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
         }
 
-        /* Features Section */
-        .features {
-            padding: 6rem 2rem;
+        /* Products Grid */
+        .products {
+            padding: 4rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
 
         .section-title {
-            font-size: 2.5rem;
-            font-weight: 700;
             text-align: center;
-            margin-bottom: 3rem;
-            background: var(--gradient-main);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-
-        .feature-card {
-            background: var(--bg-secondary);
-            padding: 2rem;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--gradient-main);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .feature-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .feature-icon {
             font-size: 2.5rem;
-            margin-bottom: 1rem;
-            background: var(--gradient-main);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-weight: 800;
+            margin-bottom: 3rem;
         }
 
-        .feature-card h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-
-        .feature-card p {
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        /* Bots Showcase */
-        .bots-showcase {
-            padding: 6rem 2rem;
-            background: var(--bg-primary);
-            position: relative;
-        }
-
-        .bots-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .bots-grid {
+        .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
-            margin-top: 4rem;
         }
 
-        .bot-card {
-            background: var(--bg-secondary);
+        .product-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
             border-radius: 16px;
             padding: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
 
-        .bot-card::before {
+        .product-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             height: 4px;
-            background: var(--gradient-secondary);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        .bot-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        .product-card:hover::before {
+            opacity: 1;
         }
 
-        .bot-card:hover::before {
-            transform: scaleX(1);
+        .product-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
 
-        .bot-header {
+        .product-header {
             display: flex;
             align-items: center;
             gap: 1rem;
             margin-bottom: 1.5rem;
         }
 
-        .bot-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: var(--gradient-main);
+        .product-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
-            color: white;
         }
 
-        .bot-info h3 {
-            font-size: 1.4rem;
-            font-weight: 600;
+        .discord-icon {
+            background: linear-gradient(135deg, #5865f2, #7289da);
+        }
+
+        .redm-icon {
+            background: linear-gradient(135deg, #dc2626, #f59e0b);
+        }
+
+        .product-title {
+            font-size: 1.5rem;
+            font-weight: 700;
             margin-bottom: 0.5rem;
         }
 
-        .bot-status {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--accent-green);
+        .product-category {
+            color: var(--text-secondary);
             font-size: 0.9rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
         }
 
-        .bot-features {
+        .product-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .product-features {
             list-style: none;
             margin-bottom: 2rem;
         }
 
-        .bot-features li {
-            padding: 0.5rem 0;
+        .product-features li {
             color: var(--text-secondary);
+            margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
-        .bot-features li::before {
-            content: '✓';
-            color: var(--accent-green);
+        .feature-check {
+            color: var(--accent);
             font-weight: bold;
         }
 
-        .bot-price {
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-price {
             font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 1rem;
+            font-weight: 800;
+            color: var(--primary);
         }
 
-        .bot-price span {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            font-weight: 400;
-        }
-
-        /* Pricing Section */
-        .pricing {
-            padding: 6rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 4rem;
-        }
-
-        .pricing-card {
-            background: var(--bg-secondary);
-            border-radius: 16px;
-            padding: 2.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .product-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
             transition: all 0.3s ease;
-            position: relative;
-            text-align: center;
         }
 
-        .pricing-card.featured {
-            border: 2px solid var(--discord-blue);
+        .product-btn:hover {
             transform: scale(1.05);
         }
 
-        .pricing-card.featured::before {
-            content: 'MOST POPULAR';
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--gradient-main);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
+        /* Stats Section */
+        .stats {
+            padding: 4rem 2rem;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
         }
 
-        .pricing-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-        }
-
-        .pricing-card.featured:hover {
-            transform: translateY(-5px) scale(1.05);
-        }
-
-        .pricing-header h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .pricing-price {
-            font-size: 3rem;
-            font-weight: 800;
-            background: var(--gradient-main);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
-        }
-
-        .pricing-period {
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-        }
-
-        .pricing-features {
-            list-style: none;
-            margin-bottom: 2rem;
-            text-align: left;
-        }
-
-        .pricing-features li {
-            padding: 0.5rem 0;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .pricing-features li::before {
-            content: '✓';
-            color: var(--accent-green);
-            font-weight: bold;
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: 6rem 2rem;
-            background: var(--bg-primary);
-            text-align: center;
-        }
-
-        .contact-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .contact-method {
-            background: var(--bg-secondary);
-            padding: 2rem;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .contact-method:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .contact-icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            background: var(--gradient-main);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--discord-darker);
-            padding: 3rem 2rem 1rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer-container {
+        .stats-grid {
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 2rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 4rem 2rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
+            margin-bottom: 2rem;
         }
 
-        .footer-section h4 {
-            font-size: 1.2rem;
-            font-weight: 600;
+        .footer-section h3 {
             margin-bottom: 1rem;
-            color: var(--text-primary);
+            color: var(--primary);
         }
 
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section ul li {
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-section ul li a {
+        .footer-section p,
+        .footer-section a {
             color: var(--text-secondary);
             text-decoration: none;
-            transition: color 0.3s ease;
+            margin-bottom: 0.5rem;
+            display: block;
         }
 
-        .footer-section ul li a:hover {
-            color: var(--text-primary);
+        .footer-section a:hover {
+            color: var(--primary);
         }
 
-        .footer-bottom {
-            text-align: center;
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
             margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-secondary);
         }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s ease;
         }
 
-        .fade-in {
-            animation: fadeInUp 0.8s ease-out;
+        .social-link:hover {
+            transform: scale(1.1);
         }
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
+            .nav {
+                padding: 0 1rem;
+            }
+
             .nav-links {
                 display: none;
             }
-            
+
             .hero h1 {
                 font-size: 2.5rem;
             }
-            
-            .hero-buttons {
+
+            .hero-cta {
                 flex-direction: column;
                 align-items: center;
             }
-            
-            .btn-primary, .btn-secondary {
-                width: 100%;
-                max-width: 300px;
-                justify-content: center;
-            }
-            
-            .features-grid, .bots-grid, .pricing-grid {
+
+            .products-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .pricing-card.featured {
-                transform: none;
-            }
-            
-            .pricing-card.featured:hover {
-                transform: translateY(-5px);
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
-        /* Scroll animations */
-        .scroll-reveal {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease;
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(99, 102, 241, 0.3);
+            border-radius: 50%;
+            animation: float 20s linear infinite;
         }
 
-        .scroll-reveal.revealed {
-            opacity: 1;
-            transform: translateY(0);
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% {
+                transform: translateY(-100px) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
     <div class="bg-animation"></div>
-    
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <div class="logo">BotCraft Studios</div>
+
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">CodeVault</div>
             <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#bots">Our Bots</a></li>
-                <li><a href="#pricing">Pricing</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#products" class="nav-link">Products</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
-            <a href="#contact" class="cta-button">Get Started</a>
-        </div>
-    </nav>
+            <a href="#contact" class="nav-cta">Get Started</a>
+        </nav>
+    </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Premium Discord Bots That Actually Work</h1>
-            <p>Transform your Discord server with our professionally crafted, feature-rich bots. Built by developers, for communities that demand excellence.</p>
-            <div class="hero-buttons">
-                <a href="#bots" class="btn-primary">
-                    <i class="fas fa-robot"></i>
-                    View Our Bots
-                </a>
-                <a href="#features" class="btn-secondary">
-                    <i class="fas fa-star"></i>
-                    Learn More
-                </a>
+    <section class="hero" id="home">
+        <h1>Premium Digital Solutions</h1>
+        <p class="hero-subtitle">
+            High-quality Discord bots and RedM scripts crafted for serious developers and server owners who demand excellence.
+        </p>
+        <div class="hero-cta">
+            <a href="#products" class="btn btn-primary">Browse Products</a>
+            <a href="#contact" class="btn btn-secondary">Custom Development</a>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-number">50+</span>
+                <span class="stat-label">Happy Clients</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">25+</span>
+                <span class="stat-label">Products Sold</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">99%</span>
+                <span class="stat-label">Uptime</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">24/7</span>
+                <span class="stat-label">Support</span>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section id="features" class="features">
-        <h2 class="section-title scroll-reveal">Why Choose BotCraft Studios?</h2>
-        <div class="features-grid">
-            <div class="feature-card scroll-reveal">
-                <div class="feature-icon">
-                    <i class="fas fa-code"></i>
-                </div>
-                <h3>Custom Built</h3>
-                <p>Every bot is meticulously crafted with clean, efficient code. No templates, no shortcuts – just premium quality Discord bots tailored to your needs.</p>
-            </div>
-            <div class="feature-card scroll-reveal">
-                <div class="feature-icon">
-                    <i class="fas fa-shield-alt"></i>
-                </div>
-                <h3>Secure & Reliable</h3>
-                <p>Enterprise-grade security with 99.9% uptime guarantee. Your server's safety and your users' data protection are our top priorities.</p>
-            </div>
-            <div class="feature-card scroll-reveal">
-                <div class="feature-icon">
-                    <i class="fas fa-headset"></i>
-                </div>
-                <h3>24/7 Support</h3>
-                <p>Our dedicated support team is always ready to help. Get instant assistance via Discord, email, or live chat whenever you need it.</p>
-            </div>
-            <div class="feature-card scroll-reveal">
-                <div class="feature-icon">
-                    <i class="fas fa-sync-alt"></i>
-                </div>
-                <h3>Regular Updates</h3>
-                <p>Stay ahead with frequent updates, new features, and Discord API compatibility. Your bots evolve as Discord evolves.</p>
-            </div>
-            <div class="feature-card scroll-reveal">
-                <div class="feature-icon">
-                    <i class="fas fa-cogs"></i>
-                </div>
-                <h3>Easy Setup</h3>
-                <p>Get your bot running in minutes with our streamlined setup process. No technical knowledge required – we handle the complexity.</p>
-            </div>
-            <div class="feature-card scroll-reveal">
-                <div class="feature-icon">
-                    <i class="fas fa-users"></i>
-                </div>
-                <h3>Community Focused</h3>
-                <p>Built by community managers for community managers. We understand what makes Discord servers thrive and engage.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Bots Showcase -->
-    <section id="bots" class="bots-showcase">
-        <div class="bots-container">
-            <h2 class="section-title scroll-reveal">Our Premium Bot Collection</h2>
-            <div class="bots-grid">
-                <div class="bot-card scroll-reveal">
-                    <div class="bot-header">
-                        <div class="bot-avatar">
-                            <i class="fas fa-gamepad"></i>
-                        </div>
-                        <div class="bot-info">
-                            <h3>GameMaster Pro</h3>
-                            <div class="bot-status">
-                                <i class="fas fa-circle"></i>
-                                Online • 50K+ Servers
-                            </div>
-                        </div>
+    <section class="products" id="products">
+        <h2 class="section-title">Premium Products</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-header">
+                    <div class="product-icon discord-icon">🤖</div>
+                    <div>
+                        <h3 class="product-title">Advanced Moderation Bot</h3>
+                        <span class="product-category">Discord Bot</span>
                     </div>
-                    <ul class="bot-features">
-                        <li>Advanced leveling system with custom rewards</li>
-                        <li>Mini-games and casino features</li>
-                        <li>Tournament management</li>
-                        <li>Achievement system</li>
-                        <li>Leaderboards and statistics</li>
-                    </ul>
-                    <div class="bot-price">$29.99 <span>/month</span></div>
-                    <a href="#contact" class="btn-primary">Get GameMaster Pro</a>
                 </div>
-
-                <div class="bot-card scroll-reveal">
-                    <div class="bot-header">
-                        <div class="bot-avatar">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <div class="bot-info">
-                            <h3>ModGuard Elite</h3>
-                            <div class="bot-status">
-                                <i class="fas fa-circle"></i>
-                                Online • 30K+ Servers
-                            </div>
-                        </div>
-                    </div>
-                    <ul class="bot-features">
-                        <li>AI-powered spam detection</li>
-                        <li>Advanced auto-moderation</li>
-                        <li>Raid protection system</li>
-                        <li>Custom warning system</li>
-                        <li>Detailed moderation logs</li>
-                    </ul>
-                    <div class="bot-price">$39.99 <span>/month</span></div>
-                    <a href="#contact" class="btn-primary">Get ModGuard Elite</a>
-                </div>
-
-                <div class="bot-card scroll-reveal">
-                    <div class="bot-header">
-                        <div class="bot-avatar">
-                            <i class="fas fa-music"></i>
-                        </div>
-                        <div class="bot-info">
-                            <h3>SoundWave Premium</h3>
-                            <div class="bot-status">
-                                <i class="fas fa-circle"></i>
-                                Online • 25K+ Servers
-                            </div>
-                        </div>
-                    </div>
-                    <ul class="bot-features">
-                        <li>High-quality music streaming</li>
-                        <li>Spotify, YouTube, SoundCloud support</li>
-                        <li>Custom playlists and favorites</li>
-                        <li>Audio effects and filters</li>
-                        <li>DJ mode with queue management</li>
-                    </ul>
-                    <div class="bot-price">$19.99 <span>/month</span></div>
-                    <a href="#contact" class="btn-primary">Get SoundWave Premium</a>
-                </div>
-
-                <div class="bot-card scroll-reveal">
-                    <div class="bot-header">
-                        <div class="bot-avatar">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <div class="bot-info">
-                            <h3>Analytics Master</h3>
-                            <div class="bot-status">
-                                <i class="fas fa-circle"></i>
-                                Online • 15K+ Servers
-                            </div>
-                        </div>
-                    </div>
-                    <ul class="bot-features">
-                        <li>Comprehensive server analytics</li>
-                        <li>Member activity tracking</li>
-                        <li>Growth insights and reports</li>
-                        <li>Custom dashboard</li>
-                        <li>Export data functionality</li>
-                    </ul>
-                    <div class="bot-price">$24.99 <span>/month</span></div>
-                    <a href="#contact" class="btn-primary">Get Analytics Master</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pricing Section -->
-    <section id="pricing" class="pricing">
-        <h2 class="section-title scroll-reveal">Choose Your Plan</h2>
-        <div class="pricing-grid">
-            <div class="pricing-card scroll-reveal">
-                <div class="pricing-header">
-                    <h3>Starter</h3>
-                    <div class="pricing-price">$49</div>
-                    <div class="pricing-period">One-time purchase</div>
-                </div>
-                <ul class="pricing-features">
-                    <li>1 Custom Discord Bot</li>
-                    <li>Basic features included</li>
-                    <li>Email support</li>
-                    <li>30-day warranty</li>
-                    <li>Setup assistance</li>
-                </ul>
-                <a href="#contact" class="btn-primary">Get Started</a>
-            </div>
-
-            <div class="pricing-card featured scroll-reveal">
-                <div class="pricing-header">
-                    <h3>Professional</h3>
-                    <div class="pricing-price">$149</div>
-                    <div class="pricing-period">One-time purchase</div>
-                </div>
-                <ul class="pricing-features">
-                    <li>3 Custom Discord Bots</li>
-                    <li>Advanced features included</li>
-                    <li>Priority support</li>
-                    <li>90-day warranty</li>
-                    <li>Free updates for 1 year</li>
-                    <li>Custom branding</li>
-                </ul>
-                <a href="#contact" class="btn-primary">Get Professional</a>
-            </div>
-
-            <div class="pricing-card scroll-reveal">
-                <div class="pricing-header">
-                    <h3>Enterprise</h3>
-                    <div class="pricing-price">$399</div>
-                    <div class="pricing-period">One-time purchase</div>
-                </div>
-                <ul class="pricing-features">
-                    <li>Unlimited Custom Bots</li>
-                    <li>All premium features</li>
-                    <li>24/7 dedicated support</li>
-                    <li>Lifetime warranty</li>
-                    <li>Free updates forever</li>
-                    <li>White-label solutions</li>
-                    <li>API access</li>
-                    <li>Custom integrations</li>
-                </ul>
-                <a href="#contact" class="btn-primary">Contact Sales</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="contact-container">
-            <h2 class="section-title scroll-reveal">Ready to Transform Your Server?</h2>
-            <p class="scroll-reveal" style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 2rem;">
-                Get in touch with our team to discuss your custom Discord bot needs. We're here to bring your vision to life.
-            </p>
-            <div class="contact-grid">
-                <div class="contact-method scroll-reveal">
-                    <div class="contact-icon">
-                        <i class="fab fa-discord"></i>
-                    </div>
-                    <h3>Discord</h3>
-                    <p>Join our support server</p>
-                    <a href="#" class="btn-primary" style="margin-top: 1rem;">https://discord.gg/GkHtBrytcM</a>
-                </div>
-                <div class="contact-method scroll-reveal">
-                    <div class="contact-icon">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <h3>Email</h3>
-                    <p>Send us a message</p>
-                    <a href="mailto:botcraftstudioswork@gmail.com" class="btn-primary" style="margin-top: 1rem;">botcraftstudioswork@gmail.com</a>
-                </div>
-                <div class="contact-method scroll-reveal">
-                    <div class="contact-icon">
-                        <i class="fas fa-comments"></i>
-                    </div>
-                    <h3>Live Chat</h3>
-                    <p>Get instant support</p>
-                    <a href="#" class="btn-primary" style="margin-top: 1rem;" onclick="openLiveChat()">Start Chat</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-container">
-            <div class="footer-section">
-                <h4>BotCraft Studios</h4>
-                <p style="color: var(--text-secondary); margin-bottom: 1rem;">
-                    Creating premium Discord bots that elevate communities worldwide. Join thousands of satisfied server owners.
+                <p class="product-description">
+                    Complete moderation solution with auto-mod, ticket system, logging, and advanced permission management.
                 </p>
-                <div style="display: flex; gap: 1rem;">
-                    <a href="#" style="color: var(--discord-blue); font-size: 1.5rem;"><i class="fab fa-discord"></i></a>
-                    <a href="#" style="color: var(--discord-blue); font-size: 1.5rem;"><i class="fab fa-twitter"></i></a>
-                    <a href="#" style="color: var(--discord-blue); font-size: 1.5rem;"><i class="fab fa-github"></i></a>
-                    <a href="#" style="color: var(--discord-blue); font-size: 1.5rem;"><i class="fab fa-youtube"></i></a>
+                <ul class="product-features">
+                    <li><span class="feature-check">✓</span> Auto-moderation with AI filtering</li>
+                    <li><span class="feature-check">✓</span> Advanced ticket system</li>
+                    <li><span class="feature-check">✓</span> Custom dashboard</li>
+                    <li><span class="feature-check">✓</span> 24/7 hosting included</li>
+                </ul>
+                <div class="product-footer">
+                    <span class="product-price">$149</span>
+                    <a href="#contact" class="product-btn">Buy Now</a>
                 </div>
             </div>
-            <div class="footer-section">
-                <h4>Products</h4>
-                <ul>
-                    <li><a href="#">GameMaster Pro</a></li>
-                    <li><a href="#">ModGuard Elite</a></li>
-                    <li><a href="#">SoundWave Premium</a></li>
-                    <li><a href="#">Analytics Master</a></li>
-                    <li><a href="#">Custom Bots</a></li>
+
+            <div class="product-card">
+                <div class="product-header">
+                    <div class="product-icon redm-icon">🤠</div>
+                    <div>
+                        <h3 class="product-title">Wild Frontier HUD</h3>
+                        <span class="product-category">RedM Script</span>
+                    </div>
+                </div>
+                <p class="product-description">
+                    Premium western-themed HUD with modern animations, custom loading screen, and professional design.
+                </p>
+                <ul class="product-features">
+                    <li><span class="feature-check">✓</span> Animated HUD with glow effects</li>
+                    <li><span class="feature-check">✓</span> 60-second loading screen</li>
+                    <li><span class="feature-check">✓</span> Mobile responsive</li>
+                    <li><span class="feature-check">✓</span> Source code included</li>
                 </ul>
+                <div class="product-footer">
+                    <span class="product-price">$349</span>
+                    <a href="#contact" class="product-btn">Buy Now</a>
+                </div>
             </div>
-            <div class="footer-section">
-                <h4>Support</h4>
-                <ul>
-                    <li><a href="#">Documentation</a></li>
-                    <li><a href="#">Setup Guides</a></li>
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">Contact Support</a></li>
-                    <li><a href="#">Status Page</a></li>
+
+            <div class="product-card">
+                <div class="product-header">
+                    <div class="product-icon discord-icon">🎵</div>
+                    <div>
+                        <h3 class="product-title">Music Bot Pro</h3>
+                        <span class="product-category">Discord Bot</span>
+                    </div>
+                </div>
+                <p class="product-description">
+                    High-quality music bot with playlist management, filters, and premium audio quality.
+                </p>
+                <ul class="product-features">
+                    <li><span class="feature-check">✓</span> Multi-platform support</li>
+                    <li><span class="feature-check">✓</span> Audio filters & effects</li>
+                    <li><span class="feature-check">✓</span> Playlist management</li>
+                    <li><span class="feature-check">✓</span> 24/7 music streaming</li>
                 </ul>
+                <div class="product-footer">
+                    <span class="product-price">$99</span>
+                    <a href="#contact" class="product-btn">Buy Now</a>
+                </div>
             </div>
-            <div class="footer-section">
-                <h4>Company</h4>
-                <ul>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Careers</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Refund Policy</a></li>
+
+            <div class="product-card">
+                <div class="product-header">
+                    <div class="product-icon redm-icon">💰</div>
+                    <div>
+                        <h3 class="product-title">Economy System</h3>
+                        <span class="product-category">RedM Script</span>
+                    </div>
+                </div>
+                <p class="product-description">
+                    Complete economy system with banking, jobs, businesses, and trading mechanics.
+                </p>
+                <ul class="product-features">
+                    <li><span class="feature-check">✓</span> Banking system</li>
+                    <li><span class="feature-check">✓</span> Job framework</li>
+                    <li><span class="feature-check">✓</span> Business ownership</li>
+                    <li><span class="feature-check">✓</span> Trading mechanics</li>
                 </ul>
+                <div class="product-footer">
+                    <span class="product-price">$299</span>
+                    <a href="#contact" class="product-btn">Buy Now</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-header">
+                    <div class="product-icon discord-icon">🎮</div>
+                    <div>
+                        <h3 class="product-title">Game Integration Bot</h3>
+                        <span class="product-category">Discord Bot</span>
+                    </div>
+                </div>
+                <p class="product-description">
+                    Connect your game server to Discord with live stats, player management, and notifications.
+                </p>
+                <ul class="product-features">
+                    <li><span class="feature-check">✓</span> Live server stats</li>
+                    <li><span class="feature-check">✓</span> Player management</li>
+                    <li><span class="feature-check">✓</span> Event notifications</li>
+                    <li><span class="feature-check">✓</span> Custom commands</li>
+                </ul>
+                <div class="product-footer">
+                    <span class="product-price">$199</span>
+                    <a href="#contact" class="product-btn">Buy Now</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-header">
+                    <div class="product-icon redm-icon">⚖️</div>
+                    <div>
+                        <h3 class="product-title">Law Enforcement Pack</h3>
+                        <span class="product-category">RedM Script</span>
+                    </div>
+                </div>
+                <p class="product-description">
+                    Complete law enforcement system with arrests, warrants, evidence, and court proceedings.
+                </p>
+                <ul class="product-features">
+                    <li><span class="feature-check">✓</span> Arrest system</li>
+                    <li><span class="feature-check">✓</span> Warrant management</li>
+                    <li><span class="feature-check">✓</span> Evidence tracking</li>
+                    <li><span class="feature-check">✓</span> Court integration</li>
+                </ul>
+                <div class="product-footer">
+                    <span class="product-price">$399</span>
+                    <a href="#contact" class="product-btn">Buy Now</a>
+                </div>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 BotCraft Studios. All rights reserved. Discord is a trademark of Discord Inc.</p>
+    </section>
+
+    <footer class="footer" id="contact">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>CodeVault</h3>
+                <p>Premium digital solutions for Discord and RedM communities. Quality code, professional support.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <a href="mailto:sales@codevault.dev">sales@codevault.dev</a>
+                <a href="https://discord.gg/codevault">Discord Server</a>
+                <a href="https://t.me/codevault">Telegram</a>
+            </div>
+            <div class="footer-section">
+                <h3>Services</h3>
+                <a href="#custom">Custom Development</a>
+                <a href="#support">24/7 Support</a>
+                <a href="#hosting">Bot Hosting</a>
+                <a href="#updates">Lifetime Updates</a>
+            </div>
         </div>
+        
+        <div class="social-links">
+            <a href="#" class="social-link">📧</a>
+            <a href="#" class="social-link">💬</a>
+            <a href="#" class="social-link">📱</a>
+        </div>
+        
+        <p style="margin-top: 2rem; color: var(--text-secondary); font-size: 0.9rem;">
+            © 2025 CodeVault. All rights reserved. | Quality guaranteed or money back.
+        </p>
     </footer>
 
     <script>
-        // Smooth scrolling for navigation links
+        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1012,7 +704,19 @@
             });
         });
 
-        // Scroll reveal animation
+        // Create floating particles
+        function createParticles() {
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                document.body.appendChild(particle);
+            }
+        }
+
+        // Intersection Observer for animations
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -1021,146 +725,66 @@
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('revealed');
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.scroll-reveal').forEach(el => {
-            observer.observe(el);
+        // Observe product cards
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
         });
 
-        // Dynamic navigation background
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 100) {
-                nav.style.background = 'rgba(44, 47, 51, 0.98)';
-            } else {
-                nav.style.background = 'rgba(44, 47, 51, 0.95)';
-            }
-        });
+        // Counter animation for stats
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            counters.forEach(counter => {
+                const target = parseInt(counter.textContent);
+                const duration = 2000;
+                const step = target / (duration / 16);
+                let current = 0;
 
-        // Pricing card interaction
-        document.querySelectorAll('.pricing-card').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                if (!card.classList.contains('featured')) {
-                    card.style.borderColor = 'var(--discord-blue)';
-                }
+                const timer = setInterval(() => {
+                    current += step;
+                    if (current >= target) {
+                        counter.textContent = target + (counter.textContent.includes('%') ? '%' : counter.textContent.includes('/') ? '/7' : '+');
+                        clearInterval(timer);
+                    } else {
+                        counter.textContent = Math.floor(current) + (counter.textContent.includes('%') ? '%' : counter.textContent.includes('/') ? '/7' : '+');
+                    }
+                }, 16);
             });
-            
-            card.addEventListener('mouseleave', () => {
-                if (!card.classList.contains('featured')) {
-                    card.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-                }
-            });
-        });
-
-        // Bot card status animation
-        document.querySelectorAll('.bot-status i').forEach(icon => {
-            setInterval(() => {
-                icon.style.opacity = icon.style.opacity === '0.5' ? '1' : '0.5';
-            }, 2000);
-        });
-
-        // Live chat function (placeholder)
-        function openLiveChat() {
-            alert('Live chat would open here! This is a demo website.');
         }
 
-        // Mobile menu toggle (basic implementation)
-        function toggleMobileMenu() {
-            const navLinks = document.querySelector('.nav-links');
-            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-        }
-
-        // Add mobile menu button for small screens
-        if (window.innerWidth <= 768) {
-            const navContainer = document.querySelector('.nav-container');
-            const mobileMenuBtn = document.createElement('button');
-            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-            mobileMenuBtn.style.cssText = `
-                background: none;
-                border: none;
-                color: white;
-                font-size: 1.5rem;
-                cursor: pointer;
-                display: block;
-            `;
-            mobileMenuBtn.onclick = toggleMobileMenu;
-            navContainer.appendChild(mobileMenuBtn);
-        }
-
-        // Parallax effect for hero section
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero');
-            const rate = scrolled * -0.5;
-            hero.style.transform = `translateY(${rate}px)`;
-        });
-
-        // Dynamic stats counter (placeholder)
-        function animateCounter(element, target) {
-            let current = 0;
-            const increment = target / 100;
-            const timer = setInterval(() => {
-                current += increment;
-                element.textContent = Math.floor(current);
-                if (current >= target) {
-                    clearInterval(timer);
-                    element.textContent = target;
-                }
-            }, 20);
-        }
-
-        // Easter egg - Konami code
-        let konamiCode = [];
-        const konamiSequence = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+        // Initialize
+        createParticles();
         
-        document.addEventListener('keydown', (e) => {
-            konamiCode.push(e.keyCode);
-            if (konamiCode.length > konamiSequence.length) {
-                konamiCode.shift();
-            }
+        // Animate counters when stats section is visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        statsObserver.observe(document.querySelector('.stats'));
+
+        // Add hover effects to cards
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-12px) scale(1.02)';
+            });
             
-            if (konamiCode.join(',') === konamiSequence.join(',')) {
-                document.body.style.filter = 'hue-rotate(180deg)';
-                setTimeout(() => {
-                    document.body.style.filter = 'none';
-                }, 3000);
-                konamiCode = [];
-            }
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
         });
-
-        // Performance optimization - lazy load background animations
-        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-        if (reducedMotion.matches) {
-            document.querySelector('.bg-animation').style.animation = 'none';
-        }
-
-        // Form validation (if contact form is added)
-        function validateEmail(email) {
-            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-        }
-
-        // Local storage for user preferences
-        function saveUserPreference(key, value) {
-            localStorage.setItem(`botcraft_${key}`, value);
-        }
-
-        function getUserPreference(key) {
-            return localStorage.getItem(`botcraft_${key}`);
-        }
-
-        // Initialize any saved preferences
-        document.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = getUserPreference('theme');
-            if (savedTheme) {
-                document.body.setAttribute('data-theme', savedTheme);
-            }
-        });
-
-        console.log('🤖 BotCraft Studios - Premium Discord Bots');
-        console.log('Built with ❤️ for the Discord community');
     </script>
 </body>
 </html>
